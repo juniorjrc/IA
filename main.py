@@ -25,15 +25,6 @@ frame = tk.Frame()
 frame.pack()
 
 #Utiliza a biblioteca do canvas para desenho da matriz em tela.
-canvas = tk.Canvas(frame, width=largura, height=altura)
-linhas, colunas = len(matriz), len(matriz[0])
-
-ret_largura, ret_altura = largura // linhas, altura // colunas
-for y, linha in enumerate(matriz):
-    for x, color in enumerate(linha):
-        x0, y0 = x * ret_largura, y * ret_altura
-        x1, y1 = x0 + ret_largura-1, y0 + ret_altura-1
-        canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
-canvas.pack()
+desenhaMapa(frame, largura, altura, matriz)
 
 root.mainloop()

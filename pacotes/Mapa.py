@@ -25,7 +25,18 @@ def makeRetangulos(altura, largura):
     retangulos = [[Mapa.Retangulo(x, y, "Surface", "black", False, "None") for x in range(altura)] for y in range(largura)]
     return retangulos
 
-def desenhaMapa(frame, largura, altura, matriz):
+def populaObjetoMapa(mapa, matriz, m1, m2):
+    # Preenche os campos do objeto Mapa
+    for x in range(m1):
+        for y in range(m2):
+            mapa.retangulo[x][y].cor = "blue"
+
+    # Atribui o mapa a matriz 10x10
+    for x in range(m1):
+        for y in range(m2):
+            matriz[x][y] = mapa.retangulo[x][y].cor
+
+def desenhaMapa(largura, altura, matriz):
     canvas = tk.Canvas(width=largura, height=altura)
     linhas, colunas = len(matriz), len(matriz[0])
     ret_largura, ret_altura = largura // linhas, altura // colunas

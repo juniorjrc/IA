@@ -1,4 +1,15 @@
+#=======================================================#
+#PROJETO IA 2019                                        #
+#LEIA OS COMENTÁRIOS DO CÓDIGO PARA MAIOR COMPREENSÃO   #
+#=======================================================#
+
 from pacotes.Mapa import *
+
+#Executor do programa
+root = tk.Tk()
+root.title("Mapa")
+frame = tk.Frame()
+frame.pack()
 
 #Define o tamanho da matriz (No caso uma matriz 10 por 10)
 m1 = 10
@@ -7,18 +18,12 @@ m2 = 10
 #Largura x altura do mapa
 largura, altura = 800, 600
 
-#Executa o teste em um mapa de matriz 10x10
-mapa = makeMapa("test", m1, m2)
-matriz = [[0 for x in range(m1)] for y in range(m2)]
+#Gera o mapa e APENAS O MAPA em formato matriz
+mapa        = makeMapa("test", m1, m2)
+matriz      = [[0 for x in range(m1)] for y in range(m2)]
 
-
-populaObjetoMapa(mapa, matriz, m1, m2)
-
-#Executor do programa
-root = tk.Tk()
-root.title("Mapa")
-frame = tk.Frame()
-frame.pack()
+#Preenche o mapa com as cores neutras
+preencheMapa(mapa, matriz, m1, m2)
 
 #Utiliza a biblioteca do canvas para desenho da matriz em tela.
 desenhaMapa(largura, altura, matriz)

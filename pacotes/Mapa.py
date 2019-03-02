@@ -48,6 +48,8 @@ def preencheMapa(mapa, matriz, m1, m2):
     # Insere a coloração dos elementos na matriz através da classe DESENHO
     setaElementosMapa(matriz, m1, m2)
 
+    return matriz
+
 
 #Desenha o mapa em tela através da biblioteca do canvas
 def desenhaMapa(largura, altura, matriz):

@@ -13,8 +13,11 @@ def defineElementos():
         0: "agua",
         1: "solo",
         2: "floresta",
-        3: "montanha",
-        4: "grama"
+        3: "gelo",
+        4: "mar",
+        5: "colina",
+        6: "montanha",
+        7: "areia"
     }
 
     agentes ={
@@ -32,28 +35,37 @@ def defineTamanhoMaximo():
                           agua              =5,
                           solo              =8,
                           floresta          =6,
+                          gelo              =4,
+                          mar               =6,
+                          colina            =4,
                           montanha          =7,
-                          grama             =9)]
+                          areia             =5)]
     return tamanhoMaximo
 
 
 #define as cores dos elementos
 def defineCores():
-    montanha        = "#2A1B0A"
-    solo            = "#F4FA58"
-    agua            = "blue"
-    floresta        = "#0B610B"
+    agua            = "#3087C1"
+    solo            = "#EDE29C"
+    floresta        = "#129B00"
+    gelo            = "#8BF1E8"
+    mar             = "#001773"
+    colina          = "#088A68"
+    montanha        = "#5F4C0B"
+    areia           = "#F5F6CE"
     jogador         = "white"
-    destino         = "black"
-    grama           = "#01DF01"
+    destino         = "red"
 
     cores = [dict(jogador       =jogador,
                   destino       =destino,
                   agua          =agua,
                   solo          =solo,
                   floresta      =floresta,
+                  gelo          =gelo,
+                  mar           =mar,
+                  colina        =colina,
                   montanha      =montanha,
-                  grama         =grama)]
+                  areia         =areia)]
 
     return cores
 
@@ -63,11 +75,14 @@ def definePesos():
     pesos = [dict(
         jogador         =0,
         destino         =0,
-        agua            =5,
-        solo            =10,
-        floresta        =23,
-        montanha        =28,
-        grama           =12
+        agua            =1.5,
+        solo            =1,
+        floresta        =2.5,
+        gelo            =4,
+        mar             =6,
+        colina          =4,
+        montanha        =7,
+        areia           =3.5
     )]
 
     return pesos

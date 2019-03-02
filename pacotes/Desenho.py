@@ -1,4 +1,7 @@
 from pacotes.Elementos import *
+from pacotes.Ambiente import * #Implantada na v1.2
+import copy
+
 #Instancia o objeto Elementos com todas suas informações
 e = Elementos()
 
@@ -19,7 +22,6 @@ def defineValoresElementos(m1, m2):
     for i, x in enumerate(elementos):
         el = input("Insira o nome do elemento " + str(i + 1) + " :").lower()
         validaElemento(i, el, listaElementos)
-
     corrigePosicaoElementos(listaElementos)
 
     # Usuário insere a quantidade de cada elemento de acordo com a listaElementos
@@ -31,30 +33,106 @@ def defineValoresElementos(m1, m2):
         casas -= vEl
         print("\nVocê possui " + str(casas) + " casas para preencher\n")
 
-    return valorElemento
+    return valorElemento, listaElementos
 
 
 #Insere os elementos, bem como suas cores e casas no mapa
 def setaElementosMapa(matriz, m1, m2):
-    contaCasas      = 0
-    contaElemento   = 0
-    valorElemento   = defineValoresElementos(m1, m2)
+    matrizAmbiente                  = copy.deepcopy(matriz) #Cria a matriz do ambiente, para futuras interações entre robo e ambiente.
+    contaCasas                      = 0 #Contador para verificar se a quantidade de casas ocupadas pelo elemento não é maior que a quantidade de casas que ele pode ocupar no vetor.
+    contaCasasOcupadas              = 0 #Contador para verificar se a quantidade de casas ocupadas pelo elemento não é maior que a quantidade de casas que o usuário inseriu
+    contaElemento                   = 0 #Contador para ver qual elemento deve ser pintado na matriz.
+    terminou                        = False  # Validador para encerrar os preenchimentos na matriz.
+    valorElemento, listaElementos   = defineValoresElementos(m1, m2) #Recebe os valores dos elementos, bem como a lista de elementos ordenada.
 
-    #Preenche as colunas da matriz
-    for x in range(m1):
-        #Preenche as linhas da matriz
-        for y in range(m2):
-            if valorElemento[contaElemento] > contaCasas: #Verifica se a a quantidade de quadrados ocupados pelo elemento é > que a quantidade que o usuário inseriu
-                matriz[x][y]    = cores[0][elementos[contaElemento]]
-                contaCasas      += 1
+    #Para melhor iteragir com a matriz, foram definidos valores de x e y e usado um laço 'while'
+    y                               = 0
+    x                               = 0
+
+    #Preenche as linhas da matriz
+    while x < m1:
+        #Preenche as colunas da matriz
+        while y < m2:
+            if terminou:
+                x = m1
+                y = m2
+                break
+            #Se a posição for cinza ele pinta com a outra cor
+            if matriz[x][y] == "gray":
+                matrizAmbiente[x][y]    = elementos[contaElemento]
+                matriz[x][y]            = cores[0][elementos[contaElemento]]
+                contaCasas              += 1
+                contaCasasOcupadas      += 1
+
+                #Se o y atingir o final do vetor, ele pula a linha, zera o y e zera o contaCasas
+                if y == m2:
+                    x         += 1
+                    y          = 0
+                    contaCasas = 0
+
+                #Se tanto x, quanto y atingirem o final da matriz (ultima linha, ultima coluna)
+                if x == m2 - 1 and y == m2 -1:
+                    #Verifica se todos os elementos foram preenchidos
+                    if contaElemento >= len(listaElementos) -1:
+                        #Caso sim, ele verifica se faltam casas para ser ocupadas do ultimo elemento
+                        if contaCasasOcupadas <= valorElemento[contaElemento]:
+                            x = 0
+                            y = 0
+                        #Caso não, ele encerra o programa
+                        else:
+                            terminou = True
+                            Ambiente(matrizAmbiente)
+                            break
+                    #Caso todos os elementos não foram preenchidos, ele volta uma linha, zera o y e zera o contaCasas
+                    else:
+                        x         -= 1
+                        y          = 0
+                        contaCasas = 0
+
+                #Verifica se x esta na ultima linha da matriz
+                if x == m2 -1:
+                    #Verifica se todas as casas do elemento foram ocupadas, se sim, zera o contaCasas
+                    if contaCasasOcupadas <= valorElemento[contaElemento]:
+                        contaCasas = 0
+                    #Se não, volta uma linha e zera o contaCasas
+                    else:
+                        x         -= 1
+                        contaCasas = 0
+
+                #Se o contaCasas atingir o tamanho máximo no vetor, zera o y, pula uma linha e zera o contaCasas
+                if contaCasas == tamanhoMaximo[0][listaElementos[contaElemento]]:
+                    y           -= y
+                    x           += 1
+                    contaCasas   = 0
+
+                #Verifica se o contaCasas ocupadas é maior ou igual ao valor do elemento proposto pelo usuário
+                if contaCasasOcupadas >= valorElemento[contaElemento]:
+                    #Verifica se é o utlimo elemento, se sim, termina o programa
+                    if contaElemento >= len(listaElementos) - 1:
+                        terminou = True
+                        Ambiente(matrizAmbiente)
+                        break
+                    #Se não, 0 o x a fim de procurar quais blocos ainda não foram preenchidos para o próximo elemento
+                    else:
+                        x                    = 0
+                        contaElemento       += 1
+                        contaCasasOcupadas   = 0
+                        contaCasas           = 0
+
+            #Se a cor não for cinza, vai pulando de bloco até encontrar um bloco cinza
             else:
-                if contaElemento >= len(valorElemento) -1:#Verifica se sobrou quadrados no mapa, se sim, pinta de cinza
-                    matriz[x][y] = "gray"
-                else:
-                    contaCasas      = 0
-                    matriz[x][y]    = cores[0][elementos[contaElemento + 1]]
-                    contaCasas      += 1
-                    contaElemento   += 1
+                y += 1
+                #Se o y chegar na ultima coluna
+                if y == m2:
+                    #Verifica se não estão todas as casas ocupadas
+                    if y >= m1 - 1 and x >= m2 - 1 and contaCasasOcupadas <= valorElemento[contaElemento]:
+                        x = 0
+                        y = 0
+                    #Se não, pula uma linha, zera o y e 0 o contaCasas
+                    else:
+                        x += 1
+                        y  = 0
+                        contaCasas = 0
 
 
 #Valida se o elemento existe na lista de elementos, bem como se ele já não foi inserido duas vezes
@@ -81,6 +159,7 @@ def corrigePosicaoElementos(listaElementos):
 def mostraInterfaceApresentacao():
     print("#========================================#")
     print("    ELEMENTOS DISPONÍVEIS PARA O MAPA    ")
+
     for i, x in enumerate(elementos):
         print("    " + str(elementos[i]).upper())
     print("#========================================#")

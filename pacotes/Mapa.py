@@ -45,7 +45,10 @@ def preencheMapa(mapa, matriz, m1, m2):
             #if x >= len(elemento):
             matriz[x][y] = mapa.retangulo[x][y].cor
 
-    # Insere a coloração dos elementos na matriz através da classe DESENHO
+    #======================================================================#
+    # Insere a coloração dos elementos na matriz através da classe DESENHO #
+    #         METÓDO PRINCIPAL DO DESENHO DOS ELEMENTOS NA MATRIZ          #
+    #======================================================================#
     setaElementosMapa(matriz, m1, m2)
 
     return matriz

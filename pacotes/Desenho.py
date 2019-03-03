@@ -57,82 +57,17 @@ def setaElementosMapa(matriz, m1, m2):
                 x = m1
                 y = m2
                 break
-            #Se a posição for cinza ele pinta com a outra cor
-            if matriz[x][y] == "gray":
-                matrizAmbiente[x][y]    = elementos[contaElemento]
-                matriz[x][y]            = cores[0][elementos[contaElemento]]
-                contaCasas              += 1
-                contaCasasOcupadas      += 1
+            #================================================#
+            # Execução do algoritmo de preenchimento do mapa #
+            #================================================#
+            x, y, m1, m2, matriz,\
+            matrizAmbiente, contaElemento,\
+            contaCasas, contaCasasOcupadas, \
+            listaElementos, \
+            valorElemento, terminou = pintaBlocos(x, y, m1, m2, matriz, matrizAmbiente, contaElemento,
+                                                  contaCasas, contaCasasOcupadas, listaElementos, valorElemento,
+                                                  terminou)
 
-                #Se o y atingir o final do vetor, ele pula a linha, zera o y e zera o contaCasas
-                if y == m2:
-                    x         += 1
-                    y          = 0
-                    contaCasas = 0
-
-                #Se tanto x, quanto y atingirem o final da matriz (ultima linha, ultima coluna)
-                if x == m2 - 1 and y == m2 -1:
-                    #Verifica se todos os elementos foram preenchidos
-                    if contaElemento >= len(listaElementos) -1:
-                        #Caso sim, ele verifica se faltam casas para ser ocupadas do ultimo elemento
-                        if contaCasasOcupadas <= valorElemento[contaElemento]:
-                            x = 0
-                            y = 0
-                        #Caso não, ele encerra o programa
-                        else:
-                            terminou = True
-                            Ambiente(matrizAmbiente)
-                            break
-                    #Caso todos os elementos não foram preenchidos, ele volta uma linha, zera o y e zera o contaCasas
-                    else:
-                        x         -= 1
-                        y          = 0
-                        contaCasas = 0
-
-                #Verifica se x esta na ultima linha da matriz
-                if x == m2 -1:
-                    #Verifica se todas as casas do elemento foram ocupadas, se sim, zera o contaCasas
-                    if contaCasasOcupadas <= valorElemento[contaElemento]:
-                        contaCasas = 0
-                    #Se não, volta uma linha e zera o contaCasas
-                    else:
-                        x         -= 1
-                        contaCasas = 0
-
-                #Se o contaCasas atingir o tamanho máximo no vetor, zera o y, pula uma linha e zera o contaCasas
-                if contaCasas == tamanhoMaximo[0][listaElementos[contaElemento]]:
-                    y           -= y
-                    x           += 1
-                    contaCasas   = 0
-
-                #Verifica se o contaCasas ocupadas é maior ou igual ao valor do elemento proposto pelo usuário
-                if contaCasasOcupadas >= valorElemento[contaElemento]:
-                    #Verifica se é o utlimo elemento, se sim, termina o programa
-                    if contaElemento >= len(listaElementos) - 1:
-                        terminou = True
-                        Ambiente(matrizAmbiente)
-                        break
-                    #Se não, 0 o x a fim de procurar quais blocos ainda não foram preenchidos para o próximo elemento
-                    else:
-                        x                    = 0
-                        contaElemento       += 1
-                        contaCasasOcupadas   = 0
-                        contaCasas           = 0
-
-            #Se a cor não for cinza, vai pulando de bloco até encontrar um bloco cinza
-            else:
-                y += 1
-                #Se o y chegar na ultima coluna
-                if y == m2:
-                    #Verifica se não estão todas as casas ocupadas
-                    if y >= m1 - 1 and x >= m2 - 1 and contaCasasOcupadas <= valorElemento[contaElemento]:
-                        x = 0
-                        y = 0
-                    #Se não, pula uma linha, zera o y e 0 o contaCasas
-                    else:
-                        x += 1
-                        y  = 0
-                        contaCasas = 0
 
 
 #Valida se o elemento existe na lista de elementos, bem como se ele já não foi inserido duas vezes
@@ -165,7 +100,153 @@ def mostraInterfaceApresentacao():
     print("#========================================#")
 
 
+#=============================================================#
+#Início Métodos de preenchimentos dos blocos da matriz v1.2.0 #
+#=============================================================#
 
+#=====================================================================================#
+# Verifica se a matrix[x][y] esta com y == m2, ou seja se ela está no final da matriz #
+#=====================================================================================#
+def verificaUltimaColuna(x, y, m2, contaCasas):
+    # Se o y atingir o final do vetor, ele pula a linha, zera o y e zera o contaCasas
+    if y == m2:
+        x          += 1
+        y           = 0
+        contaCasas  = 0
+
+    return x, y, contaCasas
+
+#=============================================================================================#
+# Verifica se a matriz[x][y] esta com x == m2 e y == m2, ou seja, ultima linha, ultima coluna #
+#=============================================================================================#
+def verificaUltimaLinhaUltimaColuna(x, y, m2, contaElemento, listaElementos, contaCasasOcupadas, valorElemento, matrizAmbiente,
+                                    contaCasas, terminou):
+    # Se tanto x, quanto y atingirem o final da matriz (ultima linha, ultima coluna)
+    if x == m2 - 1 and y == m2 - 1:
+        # Verifica se todos os elementos foram preenchidos
+        if contaElemento >= len(listaElementos) - 1:
+            # Caso sim, ele verifica se faltam casas para ser ocupadas do ultimo elemento
+            if contaCasasOcupadas <= valorElemento[contaElemento]:
+                x = 0
+                y = 0
+            # Caso não, ele encerra o programa
+            else:
+                terminou = True
+                Ambiente(matrizAmbiente)
+        # Caso todos os elementos não foram preenchidos, ele volta uma linha, zera o y e zera o contaCasas
+        else:
+            x -= 1
+            y = 0
+            contaCasas = 0
+
+    return x, y, terminou, contaCasas
+
+#==================================================================#
+# Verifica se apenas x == m2, ou seja, se ela esta na ultima linha #
+#==================================================================#
+def verificaUltimaLinha(x, m2, contaCasasOcupadas, valorElemento, contaElemento, contaCasas):
+    # Verifica se x esta na ultima linha da matriz
+    if x == m2 - 1:
+        # Verifica se todas as casas do elemento foram ocupadas, se sim, zera o contaCasas
+        if contaCasasOcupadas <= valorElemento[contaElemento]:
+            contaCasas = 0
+        # Se não, volta uma linha e zera o contaCasas
+        else:
+            x -= 1
+            contaCasas = 0
+
+    return x, contaCasas
+#=========================================================================================================#
+# Verifica quantas casas o elemento já ocupou a fim de validar o tamanho máximo de cada elemento no vetor #
+#=========================================================================================================#
+def verificaContaCasas(contaCasas, listaElementos, contaElemento, x, y):
+    # Se o contaCasas atingir o tamanho máximo no vetor, zera o y, pula uma linha e zera o contaCasas
+    if contaCasas == tamanhoMaximo[0][listaElementos[contaElemento]]:
+        y           -= y
+        x           += 1
+        contaCasas   = 0
+
+    return x, y, contaCasas
+
+#==================================================================================================================#
+# Verifica quantas casas o elemento já ocupou a fim de validar se ele já ocupou a quantidade proposta pelo usuário #
+#==================================================================================================================#
+def verificaContaCasasOcupadas(contaCasasOcupadas, valorElemento, contaElemento, listaElementos, matrizAmbiente,
+                               x, contaCasas, terminou):
+    # Verifica se o contaCasas ocupadas é maior ou igual ao valor do elemento proposto pelo usuário
+    if contaCasasOcupadas >= valorElemento[contaElemento]:
+        # Verifica se é o utlimo elemento, se sim, termina o programa
+        if contaElemento >= len(listaElementos) - 1:
+            terminou = True
+            Ambiente(matrizAmbiente)
+        # Se não, 0 o x a fim de procurar quais blocos ainda não foram preenchidos para o próximo elemento
+        else:
+            x                       = 0
+            contaElemento          += 1
+            contaCasasOcupadas      = 0
+            contaCasas              = 0
+
+    return terminou, matrizAmbiente, x, contaElemento, contaCasasOcupadas, contaCasas
+
+#====================================================#
+# Busca o próximo bloco neutro, ou seja, bloco cinza #
+#====================================================#
+def buscaBlocoNeutro(x, y, m1, m2, contaCasasOcupadas, valorElemento, contaElemento, contaCasas):
+    y += 1
+    # Se o y chegar na ultima coluna
+    if y == m2:
+        # Verifica se não estão todas as casas ocupadas
+        if y >= m1 - 1 and x >= m2 - 1 and contaCasasOcupadas <= valorElemento[contaElemento]:
+            x = 0
+            y = 0
+        # Se não, pula uma linha, zera o y e 0 o contaCasas
+        else:
+            x += 1
+            y = 0
+            contaCasas = 0
+
+    return x, y, contaCasas
+
+#====================================================================================#
+#Pinta os blocos da matriz executando todos os métodos de validação de preenchimento #
+#====================================================================================#
+def pintaBlocos(x, y, m1 , m2, matriz, matrizAmbiente, contaElemento, contaCasas, contaCasasOcupadas,
+                listaElementos, valorElemento, terminou):
+    # Se a posição for cinza ele pinta com a outra cor
+    if matriz[x][y] == "gray":
+        matrizAmbiente[x][y] = elementos[contaElemento]
+        matriz[x][y] = cores[0][elementos[contaElemento]]
+        contaCasas += 1
+        contaCasasOcupadas += 1
+
+        x, y, contaCasas                    = verificaUltimaColuna(x, y, m2, contaCasas)
+        x, y, terminou, contaCasas          = verificaUltimaLinhaUltimaColuna(x, y, m2, contaElemento, listaElementos,
+                                                                                contaCasasOcupadas, valorElemento,
+                                                                                matrizAmbiente, contaCasas, terminou)
+
+        x, contaCasas                       = verificaUltimaLinha(x, m2, contaCasasOcupadas,
+                                                                  valorElemento, contaElemento,
+                                                                  contaCasas)
+
+        x, y, contaCasas                    = verificaContaCasas(contaCasas, listaElementos, contaElemento, x, y)
+
+        terminou, matrizAmbiente, \
+        x, contaElemento, contaCasasOcupadas, \
+        contaCasas                          = verificaContaCasasOcupadas(contaCasasOcupadas, valorElemento,
+                                                                            contaElemento, listaElementos,
+                                                                         matrizAmbiente,
+                                                                        x, contaCasas, terminou)
+
+
+    # Se a cor não for cinza, vai pulando de bloco até encontrar um bloco cinza através do método buscaBlocoNeutro
+    else:
+        x, y, contaCasas = buscaBlocoNeutro(x, y, m1, m2, contaCasasOcupadas, valorElemento,
+                                            contaElemento, contaCasas)
+
+
+    return x, y, m1 , m2, matriz, matrizAmbiente, contaElemento, contaCasas, contaCasasOcupadas,\
+           listaElementos,\
+           valorElemento, terminou
 
 
 

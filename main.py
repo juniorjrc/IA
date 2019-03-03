@@ -12,8 +12,15 @@ frame = tk.Frame()
 frame.pack()
 
 #Define o tamanho da matriz (No caso uma matriz 10 por 10)
-m1 = 10
-m2 = 10
+m1 = 20
+m2 = 20
+
+#===========================================================#
+# Mapa ideal para o problema do robo                        #
+# matriz 20x20                                              #
+# montanha, colina, floresta, gelo, mar, agua, areia, solo  #
+# 55, 35, 45, 25, 60, 40, 100, 40                           #
+#===========================================================#
 
 #Largura x altura do mapa
 largura, altura = 800, 600

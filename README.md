@@ -9,15 +9,19 @@
 
 *Versão 1.2 02/03/19*
 
+*Versão 1.2.0 03/03/19*
+
 **Descrição Breve**
 - v1.0:
 	Foi criado a geração do mapa em interface gráfica utilizando a biblioteca do Canvas.
 - v1.1:
 	Criado as classes Elementos e Desenho e início da geração do mapa com a coloração dos elementos bem como suas posições.
--v1.2:
+- v1.2:
 	Finalizado o desenho dos elementos no mapa de acordo com as informações inseridas pelo usuário.
 
 	Criado a classe Ambiente, que recebe o ambiente para iterações futuras.
+- v1.2.0:
+	Melhoria nos métodos de preenchimento dos elementos no mapa
 
 
 **Descrição Detalhada**
@@ -47,6 +51,12 @@
 	1. no método 'setaElementosMapa', linha 40, da classe Desenho, foram feitas alterações para criação e preenchimento dos elementos na matriz de acordo com os dados inseridos pelo próprio usuário.
 	2. Criado a classe **Ambiente** o qual contém o ambiente pronto e servirá de utilidade para criação dos algoritmos de busca do robo.
 
+===================================================================================================================
+
+- v1.2.0:
+	1. Apenas aplicada uma melhoria nos métodos de preenchimento da matriz com os elementos.
+	2. Inserido uma série de comentários a fim de ajudar o grupo na compreensão do código
+
 **Impacto**
 - v1.0:
 	Nenhum
@@ -55,4 +65,7 @@
 	Dependendo das alterações que são realizadas na classe Desenho, ela pode interferir nas outras classes, principalmente a Elementos
 
 - v1.2:
+	Nenhum
+
+- v1.2.0:
 	Nenhum

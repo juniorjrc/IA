@@ -144,12 +144,17 @@ def verificaUltimaLinhaUltimaColuna(x, y, m2, contaElemento, listaElementos, con
 #==================================================================#
 # Verifica se apenas x == m2, ou seja, se ela esta na ultima linha #
 #==================================================================#
-def verificaUltimaLinha(x, m2, contaCasasOcupadas, valorElemento, contaElemento, contaCasas):
+def verificaUltimaLinha(x, m2, contaCasasOcupadas, valorElemento, listaElementos, contaElemento, contaCasas):
     # Verifica se x esta na ultima linha da matriz
     if x == m2 - 1:
         # Verifica se todas as casas do elemento foram ocupadas, se sim, zera o contaCasas
         if contaCasasOcupadas <= valorElemento[contaElemento]:
-            contaCasas = 0
+            if contaCasas <= tamanhoMaximo[0][listaElementos[contaElemento]]:
+                x = 0
+                y = 0
+                contaCasas = 0
+            else:
+                contaCasas = 0
         # Se não, volta uma linha e zera o contaCasas
         else:
             x -= 1
@@ -225,7 +230,7 @@ def pintaBlocos(x, y, m1 , m2, matriz, matrizAmbiente, contaElemento, contaCasas
                                                                                 matrizAmbiente, contaCasas, terminou)
 
         x, contaCasas                       = verificaUltimaLinha(x, m2, contaCasasOcupadas,
-                                                                  valorElemento, contaElemento,
+                                                                  valorElemento, listaElementos, contaElemento,
                                                                   contaCasas)
 
         x, y, contaCasas                    = verificaContaCasas(contaCasas, listaElementos, contaElemento, x, y)

@@ -5,7 +5,7 @@ import copy
 #Instancia o objeto Elementos com todas suas informações
 e = Elementos()
 
-elementos       = e.elementos[0]    #nome dos elementos em si
+elementos       = e.elementos       #nome dos elementos em si
 tamanhoMaximo   = e.tamanhoMaximo   #tamanho maximo de cada elemento
 cores           = e.cores           #cores dos elementos
 pesos           = e.pesos           #pesos dos elementos
@@ -19,19 +19,25 @@ def defineValoresElementos(m1, m2):
     mostraInterfaceApresentacao()
 
     # Usuário insere a ordem dos elementos por nome
-    for i, x in enumerate(elementos):
+
+    #DESCOMENTAR O TRECHO ABAIXO PARA CRIAÇÃO MANUAL DO MAPA
+    '''for i, x in enumerate(elementos):
         el = input("Insira o nome do elemento " + str(i + 1) + " :").lower()
         validaElemento(i, el, listaElementos)
-    corrigePosicaoElementos(listaElementos)
+    corrigePosicaoElementos(listaElementos)'''
+    listaElementos = ["montanha", "floresta", "colina", "gelo", "mar", "agua", "solo", "areia"]
 
     # Usuário insere a quantidade de cada elemento de acordo com a listaElementos
-    casas = m1 * m2
+
+    # DESCOMENTAR O TRECHO ABAIXO PARA CRIAÇÃO MANUAL DO MAPA
+    '''casas = m1 * m2
     print("\nVocê possui " + str(casas) + " casas para preencher\n")
     for i, x in enumerate(listaElementos):
         vEl = int(input("Insira a quantidade de campos para o elemento " + str(x) + ":"))
         valorElemento.append(vEl)
         casas -= vEl
-        print("\nVocê possui " + str(casas) + " casas para preencher\n")
+        print("\nVocê possui " + str(casas) + " casas para preencher\n")'''
+    valorElemento = [55, 35, 45, 25, 60, 40, 100 , 40]
 
     return valorElemento, listaElementos
 

@@ -11,6 +11,8 @@
 
 *Versão 1.2.0 03/03/19*
 
+*Versão 1.3 06/03/19*
+
 **Descrição Breve**
 - v1.0:
 	Foi criado a geração do mapa em interface gráfica utilizando a biblioteca do Canvas.
@@ -22,6 +24,8 @@
 	Criado a classe Ambiente, que recebe o ambiente para iterações futuras.
 - v1.2.0:
 	Melhoria nos métodos de preenchimento dos elementos no mapa
+- v1.3:
+	Criação das classes Jogador e Destino e criado método de movimentação do jogador
 
 
 **Descrição Detalhada**
@@ -57,6 +61,16 @@
 	1. Apenas aplicada uma melhoria nos métodos de preenchimento da matriz com os elementos.
 	2. Inserido uma série de comentários a fim de ajudar o grupo na compreensão do código
 
+===================================================================================================================
+
+- v1.3:
+	1. Classe **Jogador**:
+		Contém todos os atributos do jogador no mapa
+	2. Classe **Destino**:
+		Contém todos os atributos do destino no mapa
+	3. Foi criado também um método chamado movimentaJogador, responsável pela movimentação do jogador no mapa. Não inserido nenhuma validação quanto ao destino do jogadopr, apenas sua movimentação pelo mapa
+
+
 **Impacto**
 - v1.0:
 	Nenhum
@@ -68,4 +82,7 @@
 	Nenhum
 
 - v1.2.0:
+	Nenhum
+
+- v1.3:
 	Nenhum

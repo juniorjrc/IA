@@ -1,5 +1,7 @@
 import tkinter as tk  #importa a biblioteca gráfica TKINTER
 from pacotes.Desenho import *
+from pacotes.Jogador import *
+from pacotes.Destino import *
 
 class Mapa:
     def __init__(self, nome, altura, largura):
@@ -55,14 +57,32 @@ def preencheMapa(mapa, matriz, m1, m2):
 
 
 #Desenha o mapa em tela através da biblioteca do canvas
-def desenhaMapa(largura, altura, matriz):
+def desenhaMapa(largura, altura, matriz, m1, m2):
     canvas                      = tk.Canvas(width=largura, height=altura)
     linhas, colunas             = len(matriz), len(matriz[0])
     ret_largura, ret_altura     = largura // linhas, altura // colunas
-
-    for y, linha in enumerate(matriz):
-        for x, color in enumerate(linha):
-            x0, y0 = x * ret_largura, y * ret_altura
-            x1, y1 = x0 + ret_largura - 1, y0 + ret_altura - 1
-            canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
+    jogador                     = Jogador(m1, m2)
+    destino                     = Destino(m1, m2)
     canvas.pack()
+
+    #Trecho inserido para testes de movimentação do jogador
+    def movimentaJogador():
+        for y, linha in enumerate(matriz):
+            for x, color in enumerate(linha):
+                x0, y0 = x * ret_largura, y * ret_altura
+                x1, y1 = x0 + ret_largura - 1, y0 + ret_altura - 1
+                canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
+
+                #AQUI SERÃO REALIZADOS AS VALIDAÇÕES DE MOVIMENTAÇÃO DO JOGADOR
+                if y == jogador.linha and x == jogador.coluna:
+                    canvas.create_oval(x0, y0, x1, y1, fill=jogador.cor, outline=color)
+                    jogador.linha -= 1
+                    jogador.coluna -= 1
+
+                if y == destino.linha and x == destino.coluna:
+                    canvas.create_oval(x0, y0, x1, y1, fill=destino.cor, outline=color)
+
+        canvas.after(1000, movimentaJogador)
+
+    movimentaJogador()
+

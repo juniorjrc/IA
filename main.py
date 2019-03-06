@@ -33,6 +33,6 @@ matriz      = [[0 for x in range(m1)] for y in range(m2)]
 preencheMapa(mapa, matriz, m1, m2)
 
 #Utiliza a biblioteca do canvas para desenho da matriz em tela.
-desenhaMapa(largura, altura, matriz)
+desenhaMapa(largura, altura, matriz, m1, m2)
 
 root.mainloop()

@@ -20,18 +20,12 @@ def defineElementos():
         7: "areia"
     }
 
-    agentes ={
-        0: "jogador",
-        1: "destino"
-    }
-
-    return elementos, agentes
+    return elementos
 
 
 #define o tamanho máximo de cada elemento através de um dicionário
 def defineTamanhoMaximo():
-    tamanhoMaximo = [dict(jogador           =1,
-                          destino           =1,
+    tamanhoMaximo = [dict(
                           agua              =5,
                           solo              =8,
                           floresta          =6,
@@ -53,11 +47,8 @@ def defineCores():
     colina          = "#088A68"
     montanha        = "#5F4C0B"
     areia           = "#F5F6CE"
-    jogador         = "white"
-    destino         = "red"
 
-    cores = [dict(jogador       =jogador,
-                  destino       =destino,
+    cores = [dict(
                   agua          =agua,
                   solo          =solo,
                   floresta      =floresta,
@@ -73,8 +64,6 @@ def defineCores():
 #define os pesos dos elementos
 def definePesos():
     pesos = [dict(
-        jogador         =0,
-        destino         =0,
         agua            =1.5,
         solo            =1,
         floresta        =2.5,

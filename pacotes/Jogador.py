@@ -9,11 +9,11 @@ class Jogador:
         self.cor        = defineCorJogador()
 
 def defineLinha(m1):
-    linhaJogador = randint(0, m1)
+    linhaJogador = randint(0, m1-1)
     return linhaJogador
 
 def defineColuna(m2):
-    colunaJogador = randint(0, m2)
+    colunaJogador = randint(0, m2-1)
     return colunaJogador
 
 def defineCorJogador():

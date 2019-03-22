@@ -25,7 +25,8 @@ def defineValoresElementos(m1, m2):
         el = input("Insira o nome do elemento " + str(i + 1) + " :").lower()
         validaElemento(i, el, listaElementos)
     corrigePosicaoElementos(listaElementos)'''
-    listaElementos = ["montanha", "floresta", "colina", "gelo", "mar", "agua", "solo", "areia"]
+    listaElementos = ["floresta", "colina", "gelo", "areia", "mar", "solo", "montanha", "agua"]
+    corrigePosicaoElementos(listaElementos)
 
     # Usuário insere a quantidade de cada elemento de acordo com a listaElementos
 
@@ -37,7 +38,7 @@ def defineValoresElementos(m1, m2):
         valorElemento.append(vEl)
         casas -= vEl
         print("\nVocê possui " + str(casas) + " casas para preencher\n")'''
-    valorElemento = [55, 35, 45, 25, 60, 40, 100 , 40]
+    valorElemento = [19, 9, 3, 17, 18, 14, 8, 12]
 
     return valorElemento, listaElementos
 

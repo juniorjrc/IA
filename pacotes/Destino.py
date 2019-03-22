@@ -9,11 +9,11 @@ class Destino:
         self.cor        = defineCorDestino()
 
 def defineLinha(m1):
-    linhaDestino = randint(0, m1)
+    linhaDestino = 2
     return linhaDestino
 
 def defineColuna(m2):
-    colunaDestino = randint(0, m2)
+    colunaDestino = 3
     return colunaDestino
 
 def defineCorDestino():

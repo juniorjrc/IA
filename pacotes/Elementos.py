@@ -67,10 +67,10 @@ def definePesos():
         agua            =1.5,
         solo            =1,
         floresta        =2.5,
-        gelo            =4,
-        mar             =6,
+        gelo            =3,
+        mar             =2,
         colina          =4,
-        montanha        =7,
+        montanha        =-1,
         areia           =3.5
     )]
 

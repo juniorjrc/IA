@@ -75,14 +75,14 @@ def desenhaMapa(largura, altura, matriz, m1, m2):
 
                 #AQUI SERÃO REALIZADOS AS VALIDAÇÕES DE MOVIMENTAÇÃO DO JOGADOR
                 if y == jogador.linha and x == jogador.coluna:
-                    canvas.create_oval(x0, y0, x1, y1, fill=jogador.cor, outline=color)
-                    canvas.create_text(x0 + 9, y0 + 15,font=("Purisa", 25), text=" ☠", fill="white")
-                    jogador.linha -= 1
-                    jogador.coluna -= 1
+                    canvas.create_oval(x0, y0, x1, y1, fill=jogador.cor, outline="")
+                    canvas.create_text(x0 + 22, y0 + 30,font=("Purisa", 40), text=" ☠", fill="white")
+                    '''jogador.linha -= 1
+                    jogador.coluna -= 1'''
 
                 if y == destino.linha and x == destino.coluna:
                     canvas.create_oval(x0, y0, x1, y1, fill=destino.cor, outline=color)
-                    canvas.create_text(x0 + 9, y0 + 15, font=("Purisa", 25), text=" ♚", fill="white")
+                    canvas.create_text(x0 + 21, y0 + 30, font=("Purisa", 40), text=" ♚", fill="white")
 
         canvas.after(1000, movimentaJogador)
 

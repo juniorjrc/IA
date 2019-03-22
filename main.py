@@ -12,8 +12,8 @@ frame = tk.Frame()
 frame.pack()
 
 #Define o tamanho da matriz (No caso uma matriz 10 por 10)
-m1 = 20
-m2 = 20
+m1 = 10
+m2 = 10
 
 #===========================================================#
 # Mapa ideal para o problema do robo                        #

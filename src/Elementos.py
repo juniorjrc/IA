@@ -31,7 +31,13 @@ class Elementos:
                     'max': 5,
                     'cor': '#129B00',
                     'peso': 2
-                }
+                },
+            'lava': {
+                'nome': 'lava',
+                'max':10,
+                'cor': '#ff3300',
+                'peso': 5
+            }
             }
 
         return elementos

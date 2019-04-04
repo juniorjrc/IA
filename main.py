@@ -1,4 +1,5 @@
 from src.Mapa import *
+from src.Conversor import *
 
 ## Variaveis Constantes
 L = 10 # Linhas
@@ -14,7 +15,7 @@ frame.pack()
 # build do frame
 
 
-elementos = {'agua' :20, 'floresta': 30}
+elementos = {'agua' :10, 'floresta': 10, 'lava': 30}
 ## define os elementos utilizados e a quantia
 
 mapa = Mapa("mapa", L, C)
@@ -23,7 +24,9 @@ mapa = Mapa("mapa", L, C)
 matriz = [[0 for x in range(L)] for y in range(C)]
 #desenha uma matriz zerada
 
-matriz = Mapa.parametrizar(mapa, matriz, L, C, elementos, [9,9],[2,3])
+matriz = Mapa.parametrizar(mapa, matriz, L, C, elementos, [9,9],[2,3]) 
+nos, vizinhos = Conversor.toGrafo(matriz)
+print(nos)
 #parametriza a matriz atribuindo os elementos, pos do jogador e destino
 
 

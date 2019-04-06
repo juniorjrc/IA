@@ -1,9 +1,10 @@
 from src.Mapa import *
 from src.Conversor import *
+from src.Busca import *
 
 ## Variaveis Constantes
-L = 10 # Linhas
-C = 10 # Colunas
+L = 6 # Linhas
+C = 6 # Colunas
 LARGURA = 800 #largura da tela
 ALTURA  = 600 #altura de tela
 
@@ -15,7 +16,7 @@ frame.pack()
 # build do frame
 
 
-elementos = {'agua' :10, 'floresta': 10, 'lava': 30}
+elementos = {'agua' :10, 'floresta': 16}
 ## define os elementos utilizados e a quantia
 
 mapa = Mapa("mapa", L, C)
@@ -24,12 +25,12 @@ mapa = Mapa("mapa", L, C)
 matriz = [[0 for x in range(L)] for y in range(C)]
 #desenha uma matriz zerada
 
-matriz = Mapa.parametrizar(mapa, matriz, L, C, elementos, [9,9],[2,3]) 
+matriz = Mapa.parametrizar(mapa, matriz, L, C, elementos, [1,1],[2,4]) 
 nos, vizinhos = Conversor.toGrafo(matriz)
-print(nos)
 #parametriza a matriz atribuindo os elementos, pos do jogador e destino
-
-
+#35 destino 7 jogador
+l = Busca.amplitude(0,nos, vizinhos, 7, 16)
+print(l)
 
 canvas                      = Canvas(master, width=LARGURA, height=ALTURA)
 linhas, colunas             = len(matriz), len(matriz[0])

@@ -9,6 +9,7 @@ class Conversor:
         for linha in range(len(matriz)):
             for coluna in range(len(matriz[linha])):
                 nos.append(matriz[linha][coluna])
+                nos[cont]['identificador'] = cont
                 vizinhos.append([])
                 
                 if(linha != 0): #  vizinho acima?

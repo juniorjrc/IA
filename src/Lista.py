@@ -6,8 +6,8 @@ class Lista:
         self.inicio = None
         self.fim = None
     
-    def add(self,valor, pai):
-        no = Node(valor, None, None, pai)
+    def add(self,valor, pai, nivel):
+        no = Node(valor, None, None, pai, nivel)
 
         if self.inicio is None:
             self.inicio = no

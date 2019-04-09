@@ -31,7 +31,7 @@ nos, vizinhos = Conversor.toGrafo(matriz)
 #35 destino 7 jogador
 l = Busca.amplitude(0,nos, vizinhos, 7, 16)
 print(l)
-l = Busca.amplitude(0,nos, vizinhos, 7, 16)
+l = Busca.profundidade(0,nos, vizinhos, 7, 16)
 print(l)
 
 canvas                      = Canvas(master, width=LARGURA, height=ALTURA)

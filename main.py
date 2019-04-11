@@ -25,23 +25,31 @@ mapa = Mapa("mapa", L, C)
 matriz = [[0 for x in range(L)] for y in range(C)]
 #desenha uma matriz zerada
 
-matriz = Mapa.parametrizar(mapa, matriz, L, C, elementos, [1,1],[2,4]) 
+matriz = Mapa.parametrizar(mapa, matriz, L, C, elementos, [1,1],[4,1]) 
 nos, vizinhos = Conversor.toGrafo(matriz)
 #parametriza a matriz atribuindo os elementos, pos do jogador e destino
 #35 destino 7 jogador
-l = Busca.amplitude(0,nos, vizinhos, 7, 16)
+l = Busca.amplitude(0,nos, vizinhos, 7, 25)
 print(l)
-l = Busca.profundidade(0,nos, vizinhos, 7, 16)
+l = Busca.profundidade(0,nos, vizinhos, 7, 25)
 print(l)
 
+l = Busca.profundidadeLimite(0, nos, vizinhos, 7, 25, 2)
+print(l)
+
+# l = Busca.aprofundamentoInterativo(0,nos,vizinhos,7,25)
+# print(l)
 canvas                      = Canvas(master, width=LARGURA, height=ALTURA)
 linhas, colunas             = len(matriz), len(matriz[0])
 ret_largura, ret_altura     = LARGURA // linhas, ALTURA // colunas
+i = 0
 for x in range(L):
     for y in range(C):
         x0, y0 = x * ret_largura, y * ret_altura
         x1, y1 = x0 + ret_largura-1, y0 + ret_altura-1
-        canvas.create_rectangle(x0,y0,x1,y1,fill = matriz[x][y]['cor'], width=0)
+        canvas.create_rectangle(x0,y0,x1,y1,fill = matriz[x][y]['cor'], width=0,  )
+        canvas.create_text(x1-10,y1-10,fill="#0000ff",font="Helvetica 10 bold",text=nos[i]['identificador'])
+        i+=1
 
 canvas.pack()
 master.mainloop()

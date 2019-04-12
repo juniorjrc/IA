@@ -4,16 +4,17 @@ class Destino:
     def __init__(self, m1, m2):
         self.m1         = m1
         self.m2         = m2
-        self.linha      = defineLinha(self.m1)
-        self.coluna     = defineColuna(self.m2)
+        self.linha      = defineLinha()
+        self.coluna     = defineColuna()
         self.cor        = defineCorDestino()
+        self.posicaoDestino = self.linha * m1 + (self.coluna + 1)
 
-def defineLinha(m1):
-    linhaDestino = 2
+def defineLinha():
+    linhaDestino = 1
     return linhaDestino
 
-def defineColuna(m2):
-    colunaDestino = 3
+def defineColuna():
+    colunaDestino = 1
     return colunaDestino
 
 def defineCorDestino():

@@ -38,7 +38,7 @@ def defineValoresElementos(m1, m2):
         valorElemento.append(vEl)
         casas -= vEl
         print("\nVocê possui " + str(casas) + " casas para preencher\n")'''
-    valorElemento = [19, 9, 3, 17, 18, 14, 8, 12]
+    valorElemento = [22, 14, 16, 10, 8, 13, 7, 10]
 
     return valorElemento, listaElementos
 
@@ -99,12 +99,12 @@ def corrigePosicaoElementos(listaElementos):
 
 #Mostra interface de início
 def mostraInterfaceApresentacao():
-    print("#========================================#")
+    '''print("#========================================#")
     print("    ELEMENTOS DISPONÍVEIS PARA O MAPA    ")
 
     for i, x in enumerate(elementos):
         print("    " + str(elementos[i]).upper())
-    print("#========================================#")
+    print("#========================================#")'''
 
 
 #=============================================================#

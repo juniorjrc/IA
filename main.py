@@ -37,8 +37,11 @@ print(l)
 l = Busca.profundidadeLimite(0, nos, vizinhos, 7, 25, 2)
 print(l)
 
+l = Busca.bidirecional(0,nos, vizinhos, 7, 25) 
 # l = Busca.aprofundamentoInterativo(0,nos,vizinhos,7,25)
 # print(l)
+
+
 canvas                      = Canvas(master, width=LARGURA, height=ALTURA)
 linhas, colunas             = len(matriz), len(matriz[0])
 ret_largura, ret_altura     = LARGURA // linhas, ALTURA // colunas

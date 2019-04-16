@@ -64,6 +64,23 @@ class Lista:
             atual = atual.pai
         caminho.append(atual.valor['identificador'])
         return caminho
+
+    def showTree1(self, novo):
+        atual = self.fim
+        while atual.valor['identificador'] != novo['identificador']:
+            atual = atual.proximo
+        caminho = []
+        atual = atual.pai
+
+        while atual.pai is not None:
+            caminho.append(atual.valor)
+            atual = atual.pai
+        camminho.append(atual.valor1)
+        return caminho
+
+    def first(self):
+        return self.inicio
+    
     
     def show(self):
         no  = self.inicio

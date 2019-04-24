@@ -34,6 +34,7 @@ class Busca:
                     if novo['identificador'] == fim['identificador']:
                         caminho = []
                         caminho = l2.showTree()
+                        caminho = caminho[::-1]
                         return caminho
 
     def profundidade(self, nos, vizinhos, inicio, fim):
@@ -65,6 +66,7 @@ class Busca:
                 if novo['identificador'] == fim['identificador']:
                     caminho = []
                     caminho = l2.showTree()
+                    caminho = caminho[::-1]
                     return caminho
 
     def profundidadeLimite(self, nos, vizinhos, inicio, fim, limite):
@@ -97,6 +99,7 @@ class Busca:
                     if novo['identificador'] == fim['identificador']:
                         caminho = []
                         caminho = l2.showTree()
+                        caminho = caminho[::-1]
                         return caminho
             else:
                 return 'Atingiu o valor limite, impossivel chegar no valor'
@@ -162,8 +165,7 @@ class Busca:
             flag1 = True
             while flag1:
                 atual = l1.removeFirst()
-                indice = nos.index(atual.valor1)
-
+                indice = atual.valor['identificador']
                 for i in range(len(vizinhos[indice])):
                     novo = vizinhos[indice][i]
                     flag2 = True
@@ -172,7 +174,7 @@ class Busca:
                         if visitado[j][0]['identificador'] == novo['identificador']:
                             if visitado[j][1] == 1:
                                 flag2 = False
-                            else;
+                            else:
                                 flag3 = True
                             break
 
@@ -191,18 +193,17 @@ class Busca:
                             linha.append(novo)
                             linha.append(1)
                             visitado.append(linha)
-                    if !l1.isEmpty():
-                        aux = l1.first()
+                if l1.isEmpty() != True:
+                    aux = l1.first()
+                    if atual.nivel == aux.nivel:
+                        flag1 = True
+                    else:
+                        flag1 = False
 
-                        if atual.nivel == aux.nivel:
-                            flag1 = True
-                        else:
-                            flag1 = False
-
-                flag1 = True
-                while flag1:
-                    atual = l3.removeFirst()
-                    indice = nos.index(atual.valor1)
+            flag1 = True
+            while flag1:
+                atual = l3.removeFirst()
+                indice = atual.valor['identificador']
 
                 for i in range(len(vizinhos[indice])):
                     novo = vizinhos[indice][i]
@@ -212,7 +213,7 @@ class Busca:
                         if visitado[j][0]['identificador'] == novo['identificador']:
                             if visitado[j][1] == 2:
                                 flag2 = False
-                            else;
+                            else:
                                 flag3 = True
                             break
 
@@ -231,10 +232,9 @@ class Busca:
                             linha.append(novo)
                             linha.append(2)
                             visitado.append(linha)
-                    if !l3.isEmpty():
-                        aux = l3.first()
-
-                        if atual.nivel == aux.nivel:
-                            flag1 = True
-                        else:
-                            flag1 = False            
+                if l3.isEmpty() != True:
+                    aux = l3.first()
+                    if atual.nivel == aux.nivel:
+                        flag1 = True
+                    else:
+                        flag1 = False            

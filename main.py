@@ -34,10 +34,12 @@ print(l)
 l = Busca.profundidade(0,nos, vizinhos, 7, 25)
 print(l)
 
-l = Busca.profundidadeLimite(0, nos, vizinhos, 7, 25, 2)
+l = Busca.profundidadeLimite(0, nos, vizinhos, 7, 25, 12)
 print(l)
 
-l = Busca.bidirecional(0,nos, vizinhos, 7, 25) 
+l = Busca.bidirecional(0,nos, vizinhos, 7, 25)
+print(l)
+
 # l = Busca.aprofundamentoInterativo(0,nos,vizinhos,7,25)
 # print(l)
 

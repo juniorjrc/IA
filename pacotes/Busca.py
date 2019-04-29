@@ -89,8 +89,134 @@ class lista(object):
         caminho.append(atual.valor1)
         return caminho
 
+    def exibeArvore1(self,valor):
+        
+        
+        atual = self.head
+        while atual.valor1 != valor:
+            atual = atual.proximo
+    
+        caminho = []
+        atual = atual.pai
+        while atual.pai is not None:
+            caminho.append(atual.valor1)
+            atual = atual.pai
+        caminho.append(atual.valor1)
+        return caminho
+    
+    
+    def primeiro(self):
+        return self.head
+
 
 class busca(object):
+
+    def bidirecional(self, inicio, fim, nos, grafo):
+        
+        l1 = lista()
+        l2 = lista()
+        l3 = lista()
+        l4 = lista()
+        visitado = []
+        
+        l1.insereUltimo(inicio,0,None)
+        l2.insereUltimo(inicio,0,None)
+        linha = []
+        linha.append(inicio)
+        linha.append(1)
+        visitado.append(linha)
+        
+        l3.insereUltimo(fim,0,None)
+        l4.insereUltimo(fim,0,None)
+        linha = []
+        linha.append(fim)
+        linha.append(2)
+        visitado.append(linha)
+        
+        while True:
+            flag1 = True
+            while flag1:
+                atual = l1.deletaPrimeiro()
+                ind = nos.index(atual.valor1)
+                for i in range(len(grafo[ind])):
+                    novo = grafo[ind][i]
+                    flag2 = True
+                    flag3 = False
+                    for j in range(len(visitado)):
+                        if visitado[j][0]==novo:
+                            if visitado[j][1] == 1:
+                                flag2 = False
+                            else:
+                                flag3 = True
+                            break
+                    # for j
+                        
+                    if flag2:
+                        l1.insereUltimo(novo, atual.valor2 + 1 , atual)
+                        l2.insereUltimo(novo, atual.valor2 + 1, atual)
+                        
+                        if flag3:
+                            caminho = []
+                            caminho = l2.exibeArvore()
+                            caminho = caminho[::-1]
+                            caminho += l4.exibeArvore1(novo)
+                            return caminho
+                        else:
+                            linha = []
+                            linha.append(novo)
+                            linha.append(1)
+                            visitado.append(linha)
+                        # if flag3
+                    # if flag2
+                # for i
+                        
+                if(l1.vazio()!=True):
+                    aux = l1.primeiro()
+                    #print("Primeiro: ",aux.valor1,aux.valor2)
+                    #print("Atual: ",atual.valor1,atual.valor2)
+                    if(atual.valor2 == aux.valor2):
+                        flag1 = True
+                    else:
+                        flag1 = False
+                
+            flag1 = True
+            while flag1:
+                atual = l3.deletaPrimeiro()
+                ind = nos.index(atual.valor1)
+                for i in range(len(grafo[ind])):
+                    novo = grafo[ind][i]
+                    flag2 = True
+                    flag3 = False
+                    for j in range(len(visitado)):
+                        if visitado[j][0]==novo:
+                            if visitado[j][1] == 2:
+                                flag2 = False
+                            else:
+                                flag3 = True
+                            break
+                        
+                    if flag2:
+                        l3.insereUltimo(novo, atual.valor2 + 1 , atual)
+                        l4.insereUltimo(novo, atual.valor2 + 1, atual)
+                        
+                        if flag3:
+                            caminho = []
+                            caminho = l4.exibeArvore()
+                            caminho = caminho[::-1]
+                            caminho += l2.exibeArvore1(novo)
+                            return caminho
+                        else:
+                            linha = []
+                            linha.append(novo)
+                            linha.append(2)
+                            visitado.append(linha)
+                        
+                if(l3.vazio() != True):
+                    aux = l3.primeiro()
+                    if(atual.valor2 == aux.valor2):
+                        flag1 = True
+                    else:
+                        flag1 = False
 
     def amplitude(self, inicio, fim, nos, grafo):
 
@@ -260,9 +386,7 @@ def achaPosicao(caminho, m1, m2):
 
 #Método de execução dos algoritmos
 def exec(nos, grafo, m1, m2):
-    algoritmo   = int(input("Escolha o Algoritmo:\n1 - Amplitude\n2 - Profundidade\n3 - Profundidade Limitada\n4 - Aprofundamento Interativo\nOPÇÃO: "))
-
-
+    algoritmo   = int(input("Escolha o Algoritmo:\n1 - Amplitude\n2 - Profundidade\n3 - Profundidade Limitada\n4 - Aprofundamento Interativo\n5 - Bidirecional\nOPÇÃO: "))
     L           = busca()
 
     caminho     = []
@@ -301,6 +425,14 @@ def exec(nos, grafo, m1, m2):
         caminho = L.aprofundamentoInterativo(j.posicaoJogador, d.posicaoDestino, nos, grafo)
         caminho.reverse()
         print("Aprofundamento iterativo: ", caminho)
+        ####################################
+    
+    if algoritmo == 5:
+        #BIDIRECIONAL
+        ####################################
+        caminho = L.bidirecional(j.posicaoJogador, d.posicaoDestino, nos, grafo)
+        caminho.reverse()
+        print("Bidirecional: ",caminho)
         ####################################
 
     proxLines = achaPosicao(caminho, m1, m2)[0]

@@ -9,13 +9,13 @@ class Jogador:
         self.posicaoJogador = self.linha * m1 + (self.coluna + 1)
 
 def defineLinha(m1):
-    linhaJogador = randint(0, m1-1)
-    #linhaJogador = 4
+    #linhaJogador = randint(0, m1-1)
+    linhaJogador = 9
     return linhaJogador
 
 def defineColuna(m2):
-    colunaJogador = randint(0, m2-1)
-    #colunaJogador = 4
+    #colunaJogador = randint(0, m2-1)
+    colunaJogador = 9
     return colunaJogador
 
 def defineCorJogador():

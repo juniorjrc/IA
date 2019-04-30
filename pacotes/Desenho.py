@@ -1,9 +1,9 @@
-from pacotes.Elementos import *
-from pacotes.Ambiente import * #Implantada na v1.2
+from pacotes import Elementos as elements
+from pacotes import Ambiente as ambients #Implantada na v1.2
 import copy
 
 #Instancia o objeto Elementos com todas suas informações
-e = Elementos()
+e = elements.Elementos()
 
 elementos       = e.elementos       #nome dos elementos em si
 tamanhoMaximo   = e.tamanhoMaximo   #tamanho maximo de cada elemento
@@ -38,7 +38,7 @@ def defineValoresElementos(m1, m2):
         valorElemento.append(vEl)
         casas -= vEl
         print("\nVocê possui " + str(casas) + " casas para preencher\n")'''
-    valorElemento = [22, 14, 16, 10, 8, 13, 7, 10]
+    valorElemento = [2, 3, 5, 4, 4, 1, 4, 2]
 
     return valorElemento, listaElementos
 
@@ -74,6 +74,8 @@ def setaElementosMapa(matriz, m1, m2):
             valorElemento, terminou = pintaBlocos(x, y, m1, m2, matriz, matrizAmbiente, contaElemento,
                                                   contaCasas, contaCasasOcupadas, listaElementos, valorElemento,
                                                   terminou)
+    
+    return matrizAmbiente
 
 
 
@@ -139,7 +141,7 @@ def verificaUltimaLinhaUltimaColuna(x, y, m2, contaElemento, listaElementos, con
             # Caso não, ele encerra o programa
             else:
                 terminou = True
-                Ambiente(matrizAmbiente)
+                ambients.Ambiente(matrizAmbiente)
         # Caso todos os elementos não foram preenchidos, ele volta uma linha, zera o y e zera o contaCasas
         else:
             x -= 1
@@ -158,7 +160,6 @@ def verificaUltimaLinha(x, m2, contaCasasOcupadas, valorElemento, listaElementos
         if contaCasasOcupadas <= valorElemento[contaElemento]:
             if contaCasas <= tamanhoMaximo[0][listaElementos[contaElemento]]:
                 x = 0
-                y = 0
                 contaCasas = 0
             else:
                 contaCasas = 0
@@ -190,7 +191,7 @@ def verificaContaCasasOcupadas(contaCasasOcupadas, valorElemento, contaElemento,
         # Verifica se é o utlimo elemento, se sim, termina o programa
         if contaElemento >= len(listaElementos) - 1:
             terminou = True
-            Ambiente(matrizAmbiente)
+            ambients.Ambiente(matrizAmbiente)
         # Se não, 0 o x a fim de procurar quais blocos ainda não foram preenchidos para o próximo elemento
         else:
             x                       = 0

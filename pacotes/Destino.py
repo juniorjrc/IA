@@ -10,11 +10,11 @@ class Destino:
         self.posicaoDestino = self.linha * m1 + (self.coluna + 1)
 
 def defineLinha():
-    linhaDestino = 1
+    linhaDestino = 0
     return linhaDestino
 
 def defineColuna():
-    colunaDestino = 1
+    colunaDestino = 0
     return colunaDestino
 
 def defineCorDestino():

@@ -70,7 +70,7 @@ def definePesos():
         gelo            =3,
         mar             =2,
         colina          =4,
-        montanha        =-1,
+        montanha        =200,
         areia           =3.5
     )]
 

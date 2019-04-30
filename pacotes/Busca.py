@@ -1,6 +1,7 @@
 import pacotes.Grafo as g
-from pacotes.Jogador import *
-from pacotes.Destino import *
+from pacotes import BuscaParametrizada as bp
+from pacotes import Jogador as jogador 
+from pacotes import Destino as destino 
 
 class No(object):
     def __init__(self, pai=None, valor1=None, valor2=None, anterior=None, proximo=None):
@@ -385,13 +386,13 @@ def achaPosicao(caminho, m1, m2):
     return line, column
 
 #Método de execução dos algoritmos
-def exec(nos, grafo, m1, m2):
-    algoritmo   = int(input("Escolha o Algoritmo:\n1 - Amplitude\n2 - Profundidade\n3 - Profundidade Limitada\n4 - Aprofundamento Interativo\n5 - Bidirecional\nOPÇÃO: "))
+def exec(nos, grafo, m1, m2, grafoPesos):
+    algoritmo   = int(input("Escolha o Algoritmo:\n1 - Amplitude\n2 - Profundidade\n3 - Profundidade Limitada\n4 - Aprofundamento Interativo\n5 - Bidirecional\n6 - Custo uniforme\nOPÇÃO: "))
     L           = busca()
 
     caminho     = []
-    j           = Jogador(m1, m2)
-    d           = Destino(m1, m2)
+    j           = jogador.Jogador(m1, m2)
+    d           = destino.Destino(m1, m2)
 
     if algoritmo == 1:
         #AMPLITUDE
@@ -399,6 +400,8 @@ def exec(nos, grafo, m1, m2):
         caminho = L.amplitude(j.posicaoJogador, d.posicaoDestino, nos, grafo)
         caminho.reverse()
         print("Amplitude: ", caminho)
+        proxLines = achaPosicao(caminho, m1, m2)[0]
+        proxColumns = achaPosicao(caminho, m1, m2)[1]
         ####################################
 
     if algoritmo == 2:
@@ -407,6 +410,8 @@ def exec(nos, grafo, m1, m2):
         caminho = L.profundidade(j.posicaoJogador, d.posicaoDestino, nos, grafo)
         caminho.reverse()
         print("Profundidade: ", caminho)
+        proxLines = achaPosicao(caminho, m1, m2)[0]
+        proxColumns = achaPosicao(caminho, m1, m2)[1]
         ####################################
 
     if algoritmo == 3:
@@ -417,6 +422,8 @@ def exec(nos, grafo, m1, m2):
         if caminho != None:
             caminho.reverse()
         print("Profunidade Limitada: ", caminho)
+        proxLines = achaPosicao(caminho, m1, m2)[0]
+        proxColumns = achaPosicao(caminho, m1, m2)[1]
         ####################################
 
     if algoritmo == 4:
@@ -425,6 +432,8 @@ def exec(nos, grafo, m1, m2):
         caminho = L.aprofundamentoInterativo(j.posicaoJogador, d.posicaoDestino, nos, grafo)
         caminho.reverse()
         print("Aprofundamento iterativo: ", caminho)
+        proxLines = achaPosicao(caminho, m1, m2)[0]
+        proxColumns = achaPosicao(caminho, m1, m2)[1]
         ####################################
     
     if algoritmo == 5:
@@ -433,10 +442,17 @@ def exec(nos, grafo, m1, m2):
         caminho = L.bidirecional(j.posicaoJogador, d.posicaoDestino, nos, grafo)
         caminho.reverse()
         print("Bidirecional: ",caminho)
+        proxLines = achaPosicao(caminho, m1, m2)[0]
+        proxColumns = achaPosicao(caminho, m1, m2)[1]
+        ####################################
+    
+    if algoritmo == 6:
+         #CUSTO UNIFORME
+        ####################################
+        proxLines, proxColumns = bp.exec(nos, grafo, m1, m2, grafoPesos, j.posicaoJogador, d.posicaoDestino)
         ####################################
 
-    proxLines = achaPosicao(caminho, m1, m2)[0]
-    proxColumns = achaPosicao(caminho, m1, m2)[1]
+    
 
     return proxLines, proxColumns
 

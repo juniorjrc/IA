@@ -215,7 +215,8 @@ def achaPosicao(caminho, m1, m2):
             contador = 0
 
     return line, column
-    
+
+#EXECUÇÃO DO ALGORITMO
 def exec(nos, grafo, m1, m2 , grafoPesos, jogador, destino):
 
     sol = busca()

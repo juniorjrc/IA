@@ -1,38 +1,27 @@
-#=======================================================#
-#PROJETO IA 2019                                        #
-#LEIA OS COMENTÁRIOS DO CÓDIGO PARA MAIOR COMPREENSÃO   #
-#=======================================================#
+################################################
+#       v4.0 - BATMAN NEEDS FIND JOKER         #
+################################################
+import tkinter as tk
+from packages import Mapa as mapa
+from packages import Desenho as d
+desenho = d.Desenho()
 
-from pacotes.Mapa import *
+#DEFINIÇÃO DE LINHAS E COLUNAS DO MAPA
+linhas      = 5
+colunas     = 5
 
-#Executor do programa
-root = tk.Tk()
-root.title("Mapa")
-frame = tk.Frame()
-frame.pack()
+#LARGURA E ALTURA DO MAPA
+largura, altura = 800,600
 
-#Define o tamanho da matriz (No caso uma matriz 10 por 10)
-m1 = 5
-m2 = 5
+#CRIAÇÃO DO MAPA E IMPLEMENTAÇÃO DA MATRIZ BASE DOS OBJETOS
+mapa = mapa.Mapa("BATMAN VS JOKER", linhas, colunas)
+matriz      = [[0 for x in range(linhas)] for y in range(colunas)]
 
-#===========================================================#
-# Mapa ideal para o problema do robo                        #
-# matriz 20x20                                              #
-# montanha, colina, floresta, gelo, mar, agua, areia, solo  #
-# 55, 35, 45, 25, 60, 40, 100, 40                           #
-#===========================================================#
+#PREENCHE A MATRIZ COM OS ELEMENTOS(COR, PESO, NOME, ETC..)
+mapaDesenhado = desenho.preencheMatriz(mapa, matriz, linhas, colunas)
 
-#Largura x altura do mapa
-largura, altura = 800, 600
+#DESENHA O MAPA EM TELA
+desenho.desenhaMapa(largura, altura, mapaDesenhado, linhas, colunas)
 
-#Gera o mapa e APENAS O MAPA em formato matriz
-mapa        = makeMapa("test", m1, m2)
-matriz      = [[0 for x in range(m1)] for y in range(m2)]
 
-#Preenche o mapa com as cores neutras
-preencheMapa(mapa, matriz, m1, m2)
 
-#Utiliza a biblioteca do canvas para desenho da matriz em tela.
-desenhaMapa(largura, altura, matriz, m1, m2)
-
-root.mainloop()

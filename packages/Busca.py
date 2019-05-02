@@ -1,7 +1,7 @@
-import pacotes.Grafo as g
-from pacotes import BuscaParametrizada as bp
-from pacotes import Jogador as jogador 
-from pacotes import Destino as destino 
+import packages.Grafo as g
+from packages import BuscaParametrizada as bp
+from packages import Robo as robo 
+from packages import Destino as destino 
 
 class No(object):
     def __init__(self, pai=None, valor1=None, valor2=None, anterior=None, proximo=None):
@@ -366,7 +366,7 @@ class busca(object):
 ########################################
 #  ENCONTA POSIÇÃO DO ROBO E DESTINO   #
 ########################################
-def achaPosicao(caminho, m1, m2):
+def achaPosicao(caminho, linha, coluna):
     contador        = 0
     line            = []
     column          = []
@@ -374,8 +374,8 @@ def achaPosicao(caminho, m1, m2):
         print("Não existe o melhor caminho de acordo com o limite solicitado!!")
     else:
         for p, x in enumerate(caminho):
-            for y in range(m1):
-                for z in range(m2):
+            for y in range(linha):
+                for z in range(coluna):
                     contador += 1
                     if contador == x:
                         line.append(y)
@@ -386,76 +386,72 @@ def achaPosicao(caminho, m1, m2):
     return line, column
 
 #Método de execução dos algoritmos
-def exec(nos, grafo, m1, m2, grafoPesos):
-    algoritmo   = int(input("Escolha o Algoritmo:\n1 - Amplitude\n2 - Profundidade\n3 - Profundidade Limitada\n4 - Aprofundamento Interativo\n5 - Bidirecional\n6 - Custo uniforme\nOPÇÃO: "))
+def exec(nos, grafo, linha, coluna, grafoPesos):
+    algoritmo   = int(input("Escolha o Algoritmo para ajudar o Batman:\n1 - Amplitude\n2 - Profundidade\n3 - Profundidade Limitada\n4 - Aprofundamento Interativo\n5 - Bidirecional\n6 - Custo uniforme\nOPÇÃO: "))
     L           = busca()
 
     caminho     = []
-    j           = jogador.Jogador(m1, m2)
-    d           = destino.Destino(m1, m2)
+    r           = robo.Robo(linha, coluna)
+    d           = destino.Destino(linha, coluna)
 
     if algoritmo == 1:
         #AMPLITUDE
         ####################################
-        caminho = L.amplitude(j.posicaoJogador, d.posicaoDestino, nos, grafo)
+        caminho = L.amplitude(r.posicaoRobo, d.posicaoDestino, nos, grafo)
         caminho.reverse()
         print("Amplitude: ", caminho)
-        proxLines = achaPosicao(caminho, m1, m2)[0]
-        proxColumns = achaPosicao(caminho, m1, m2)[1]
+        proxLines = achaPosicao(caminho, linha, coluna)[0]
+        proxColumns = achaPosicao(caminho, linha, coluna)[1]
         ####################################
 
     if algoritmo == 2:
         #PROFUNDIDADE
         ####################################
-        caminho = L.profundidade(j.posicaoJogador, d.posicaoDestino, nos, grafo)
+        caminho = L.profundidade(r.posicaoRobo, d.posicaoDestino, nos, grafo)
         caminho.reverse()
         print("Profundidade: ", caminho)
-        proxLines = achaPosicao(caminho, m1, m2)[0]
-        proxColumns = achaPosicao(caminho, m1, m2)[1]
+        proxLines = achaPosicao(caminho, linha, coluna)[0]
+        proxColumns = achaPosicao(caminho, linha, coluna)[1]
         ####################################
 
     if algoritmo == 3:
         #PROFUNDIDADE LIMITADA
         ####################################
         lim = int(input("Insira o limite : "))
-        caminho = L.profundidadeLimitada(j.posicaoJogador, d.posicaoDestino, lim, nos, grafo)
+        caminho = L.profundidadeLimitada(r.posicaoRobo, d.posicaoDestino, lim, nos, grafo)
         if caminho != None:
             caminho.reverse()
         print("Profunidade Limitada: ", caminho)
-        proxLines = achaPosicao(caminho, m1, m2)[0]
-        proxColumns = achaPosicao(caminho, m1, m2)[1]
+        proxLines = achaPosicao(caminho, linha, coluna)[0]
+        proxColumns = achaPosicao(caminho, linha, coluna)[1]
         ####################################
 
     if algoritmo == 4:
         #APROFUNDAMENTO INTERATIVO
         ####################################
-        caminho = L.aprofundamentoInterativo(j.posicaoJogador, d.posicaoDestino, nos, grafo)
+        caminho = L.aprofundamentoInterativo(r.posicaoRobo, d.posicaoDestino, nos, grafo)
         caminho.reverse()
         print("Aprofundamento iterativo: ", caminho)
-        proxLines = achaPosicao(caminho, m1, m2)[0]
-        proxColumns = achaPosicao(caminho, m1, m2)[1]
+        proxLines = achaPosicao(caminho, linha, coluna)[0]
+        proxColumns = achaPosicao(caminho, linha, coluna)[1]
         ####################################
     
     if algoritmo == 5:
         #BIDIRECIONAL
         ####################################
-        caminho = L.bidirecional(j.posicaoJogador, d.posicaoDestino, nos, grafo)
+        caminho = L.bidirecional(r.posicaoRobo, d.posicaoDestino, nos, grafo)
         caminho.reverse()
         print("Bidirecional: ",caminho)
-        proxLines = achaPosicao(caminho, m1, m2)[0]
-        proxColumns = achaPosicao(caminho, m1, m2)[1]
+        proxLines = achaPosicao(caminho, linha, coluna)[0]
+        proxColumns = achaPosicao(caminho, linha, coluna)[1]
         ####################################
     
     if algoritmo == 6:
          #CUSTO UNIFORME
         ####################################
-        proxLines, proxColumns = bp.exec(nos, grafo, m1, m2, grafoPesos, j.posicaoJogador, d.posicaoDestino)
+        proxLines, proxColumns = bp.exec(nos, grafo, linha, coluna, grafoPesos, r.posicaoRobo, d.posicaoDestino)
         ####################################
 
     
 
     return proxLines, proxColumns
-
-
-
-

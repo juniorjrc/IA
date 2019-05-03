@@ -26,8 +26,8 @@ def defineCorDestino():
 
 #DEFINE A IMAGEM DO DESTINO
 def defineImagem():
-    coringa = Image.open(r'./Images/coringa.png')  
-    basewidth = 100
+    coringa = Image.open(r'./Images/coringa2.png')  
+    basewidth = 60
     wpercent = (basewidth / float(coringa.size[0]))  
     hsize = int((float(coringa.size[1]) * float(wpercent)))
     coringa = coringa.resize((basewidth, hsize), PIL.Image.ANTIALIAS)  

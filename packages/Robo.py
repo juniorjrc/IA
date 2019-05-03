@@ -27,7 +27,7 @@ def defineCorRobo():
     return corRobo
 
 def defineImagem():
-    batman = Image.open(r'./Images/batman.png')
+    batman = Image.open(r'./Images/batman2.png')
     basewidth = 100
     bwpercent = (basewidth/ float(batman.size[0]))
     bhsize = int((float(batman.size[1]) * float(bwpercent)))

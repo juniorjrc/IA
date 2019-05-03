@@ -1,6 +1,6 @@
 class Grafo():
     def __init__(self, matriz):
-        self.nos, self.nosPosicionados = self.pegaNos(matriz)
+        self.nos, self.nosPosicionados, self.posicoes = self.pegaNos(matriz)
         self.grafo, self.grafoParametrizado = self.geraGrafo(matriz, self.nosPosicionados)
     
     def pegaNos(self, matriz):
@@ -15,8 +15,15 @@ class Grafo():
             nosPosicionados.append([])
             for coluna in range(len(matriz[linha])):
                 nosPosicionados[linha].append(matriz[linha][coluna].posicao)
-        
-        return nos, nosPosicionados
+        posicoes  = []
+
+        for linha in range(len(matriz)):
+            for coluna in range(len(matriz[linha])):
+                aux = []
+                aux.append(linha)
+                aux.append(coluna)
+                posicoes.append(aux)
+        return nos, nosPosicionados, posicoes
 
     def geraGrafo(self, matriz, nosPosicionados):
         vizinhos        = []  # vizinhos dos nos

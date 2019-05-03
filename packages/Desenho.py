@@ -172,7 +172,7 @@ class Desenho():
         batman = r.Robo(linhas, colunas)
         coringa = d.Destino(linhas, colunas)
         grafo = g.Grafo(matriz)
-        lines, columns = b.exec(grafo.nos, grafo.grafo, linhas, colunas, grafo.grafoParametrizado)
+        lines, columns = b.exec(grafo.nos, grafo.grafo, linhas, colunas, grafo.grafoParametrizado, grafo.posicoes)
         canvas.pack()
 
         #MOVIMENTA O JOGADOR DE ACORDO COM OS ALGORITMOS DE BUSCA

@@ -386,8 +386,8 @@ def achaPosicao(caminho, linha, coluna):
     return line, column
 
 #Método de execução dos algoritmos
-def exec(nos, grafo, linha, coluna, grafoPesos):
-    algoritmo   = int(input("Escolha o Algoritmo para ajudar o Batman:\n1 - Amplitude\n2 - Profundidade\n3 - Profundidade Limitada\n4 - Aprofundamento Interativo\n5 - Bidirecional\n6 - Custo uniforme\nOPÇÃO: "))
+def exec(nos, grafo, linha, coluna, grafoPesos, posicoes):
+    algoritmo   = int(input("Escolha o Algoritmo para ajudar o Batman:\n1 - Amplitude\n2 - Profundidade\n3 - Profundidade Limitada\n4 - Aprofundamento Interativo\n5 - Bidirecional\n6 - Custo uniforme\n7 - Greed\n8 - A*\nOPÇÃO: "))
     L           = busca()
 
     caminho     = []
@@ -449,7 +449,19 @@ def exec(nos, grafo, linha, coluna, grafoPesos):
     if algoritmo == 6:
          #CUSTO UNIFORME
         ####################################
-        proxLines, proxColumns = bp.exec(nos, grafo, linha, coluna, grafoPesos, r.posicaoRobo, d.posicaoDestino)
+        proxLines, proxColumns = bp.exec(algoritmo, nos, grafo, linha, coluna, grafoPesos, r.posicaoRobo, d.posicaoDestino, posicoes)
+        ####################################
+    
+    if algoritmo == 7:
+         #GREEDY
+        ####################################
+        proxLines, proxColumns = bp.exec(algoritmo, nos, grafo, linha, coluna, grafoPesos, r.posicaoRobo, d.posicaoDestino, posicoes)
+        ####################################
+    
+    if algoritmo == 8:
+        #A*
+        ####################################
+        proxLines, proxColumns = bp.exec(algoritmo, nos, grafo, linha, coluna, grafoPesos, r.posicaoRobo, d.posicaoDestino, posicoes)
         ####################################
 
     

@@ -1,3 +1,4 @@
+from math import fabs
 class No(object):
     def __init__(self, pai=None, valor1=None, valor2=None, valor3=None, anterior=None, proximo=None):
         self.pai       = pai
@@ -175,23 +176,113 @@ class busca(object):
             ind = nos.index(atual.valor1)
             for i in range(len(grafo[ind])):
                 novo = grafo[ind][i][0]
-                valor = atual.valor2 + grafo[ind][i][1]
+                v2 = atual.valor2 + grafo[ind][i][1]
                 flag = True
                 for j in range(len(visitado)):
                     if visitado[j][0]==novo:
-                        if visitado[j][1]<=valor:
+                        if visitado[j][1]<=v2:
                             flag = False
                         break
                 
                 if flag:
-                    l1.inserePos_X(novo, valor , valor, atual)
-                    l2.inserePos_X(novo, valor, valor, atual)
+                    l1.inserePos_X(novo, v2 , v2, atual)
+                    l2.inserePos_X(novo, v2, v2, atual)
                     linha = []
                     linha.append(novo)
-                    linha.append(valor)
+                    linha.append(v2)
                     visitado.append(linha)
                     
-        return "Caminho não encontrado"
+        return "Caminho não encontrado"      
+    
+    def heuristica(self, pos1, pos2):
+
+        return (fabs(pos1[0] - pos2[0]) + fabs(pos1[1] - pos2[1]))
+
+
+    def greedy(self, inicio, fim, nos, grafo, posicoes):
+        
+        l1 = lista()
+        l2 = lista()
+        visitado = []
+        
+        l1.insereUltimo(inicio,0,0,None)
+        l2.insereUltimo(inicio,0,0,None)
+        linha = []
+        linha.append(inicio)
+        linha.append(0)
+        visitado.append(linha)
+        
+        while l1.vazio() is not None:
+            atual = l1.deletaPrimeiro()
+            if atual.valor1 == fim:
+                caminho = []
+                caminho = l2.exibeArvore2(atual.valor1,atual.valor2)
+                return caminho, atual.valor3
+        
+            ind = nos.index(atual.valor1)
+            for i in range(len(grafo[ind])):
+                novo = grafo[ind][i][0]
+                v2 = self.heuristica(posicoes[fim - 1],posicoes[atual.valor1 - 1])
+                v3 = atual.valor3 + grafo[ind][i][1]
+                flag = True
+                for j in range(len(visitado)):
+                    if visitado[j][0]==novo:
+                        if visitado[j][1]<=v2:
+                            flag = False
+                        break
+                
+                if flag:
+                    l1.inserePos_X(novo, v2, v3, atual)
+                    l2.inserePos_X(novo, v2, v3, atual)
+                    linha = []
+                    linha.append(novo)
+                    linha.append(v2)
+                    visitado.append(linha)
+                    
+        return "Caminho não encontrado"      
+
+    
+    def a_estrela(self, inicio, fim, nos, grafo, posicoes):
+        
+        l1 = lista()
+        l2 = lista()
+        visitado = []
+        
+        l1.insereUltimo(inicio,0,0,None)
+        l2.insereUltimo(inicio,0,0,None)
+        linha = []
+        linha.append(inicio)
+        linha.append(0)
+        visitado.append(linha)
+        
+        while l1.vazio() is not None:
+            atual = l1.deletaPrimeiro()
+            if atual.valor1 == fim:
+                caminho = []
+                caminho = l2.exibeArvore2(atual.valor1,atual.valor2)
+                return caminho, atual.valor3
+        
+            ind = nos.index(atual.valor1)
+            for i in range(len(grafo[ind])):
+                novo = grafo[ind][i][0]
+                v3 = atual.valor3 + grafo[ind][i][1]
+                v2 = v3 + self.heuristica(posicoes[fim - 1],posicoes[atual.valor1 - 1])
+                flag = True
+                for j in range(len(visitado)):
+                    if visitado[j][0]==novo:
+                        if visitado[j][1]<=v2:
+                            flag = False
+                        break
+                
+                if flag:
+                    l1.inserePos_X(novo, v2, v3, atual)
+                    l2.inserePos_X(novo, v2, v3, atual)
+                    linha = []
+                    linha.append(novo)
+                    linha.append(v2)
+                    visitado.append(linha)
+                    
+        return "Caminho não encontrado"   
 
 
 ########################################
@@ -217,13 +308,33 @@ def achaPosicao(caminho, m1, m2):
     return line, column
 
 #EXECUÇÃO DO ALGORITMO
-def exec(nos, grafo, m1, m2 , grafoPesos, jogador, destino):
-
-    sol = busca()
-    caminho = []
-    caminho, custo = sol.custo_uniforme(jogador, destino, nos, grafoPesos)
-    print("Custo Uniforme: ",caminho[::-1],"\tcusto do caminho: ",custo)
-    caminho.reverse()
-    proxLines = achaPosicao(caminho, m1, m2)[0]
-    proxColumns = achaPosicao(caminho, m1, m2)[1]
-    return proxLines, proxColumns
+def exec(op, nos, grafo, m1, m2 , grafoPesos, jogador, destino, posicoes):
+    if op == 6:
+        sol = busca()
+        caminho = []
+        caminho, custo = sol.custo_uniforme(jogador, destino, nos, grafoPesos)
+        print("Custo Uniforme: ",caminho[::-1],"\tcusto do caminho: ",custo)
+        caminho.reverse()
+        proxLines = achaPosicao(caminho, m1, m2)[0]
+        proxColumns = achaPosicao(caminho, m1, m2)[1]
+        return proxLines, proxColumns
+    
+    if op == 7:
+        sol = busca()
+        caminho = []
+        caminho, custo = sol.greedy(jogador, destino, nos, grafoPesos, posicoes)
+        print("Greedy: ",caminho[::-1],"\tcusto do caminho: ",custo)
+        caminho.reverse()
+        proxLines = achaPosicao(caminho, m1, m2)[0]
+        proxColumns = achaPosicao(caminho, m1, m2)[1]
+        return proxLines, proxColumns
+    
+    if op == 8:
+        sol = busca()
+        caminho = []
+        caminho, custo = sol.a_estrela(jogador, destino, nos, grafoPesos, posicoes)
+        print("A*: ",caminho[::-1],"\tcusto do caminho: ",custo)
+        caminho.reverse()
+        proxLines = achaPosicao(caminho, m1, m2)[0]
+        proxColumns = achaPosicao(caminho, m1, m2)[1]
+        return proxLines, proxColumns

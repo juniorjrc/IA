@@ -4,6 +4,7 @@
 import tkinter as tk
 from packages import Mapa as mapa
 from packages import Desenho as d
+from packages import Interface as i
 desenho = d.Desenho()
 
 #DEFINIÇÃO DE LINHAS E COLUNAS DO MAPA

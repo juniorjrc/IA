@@ -387,14 +387,16 @@ def achaPosicao(caminho, linha, coluna):
 
 #Método de execução dos algoritmos
 def exec(nos, grafo, linha, coluna, grafoPesos, posicoes):
-    algoritmo   = int(input("Escolha o Algoritmo para ajudar o Batman:\n1 - Amplitude\n2 - Profundidade\n3 - Profundidade Limitada\n4 - Aprofundamento Interativo\n5 - Bidirecional\n6 - Custo uniforme\n7 - Greed\n8 - A*\nOPÇÃO: "))
+    arqR = open("Files/algoritmo.txt", "r+")
+    algoritmo = arqR.read()
+
     L           = busca()
 
     caminho     = []
     r           = robo.Robo(linha, coluna)
     d           = destino.Destino(linha, coluna)
 
-    if algoritmo == 1:
+    if algoritmo == "Amplitude":
         #AMPLITUDE
         ####################################
         caminho = L.amplitude(r.posicaoRobo, d.posicaoDestino, nos, grafo)
@@ -404,7 +406,7 @@ def exec(nos, grafo, linha, coluna, grafoPesos, posicoes):
         proxColumns = achaPosicao(caminho, linha, coluna)[1]
         ####################################
 
-    if algoritmo == 2:
+    if algoritmo == "Profundidade":
         #PROFUNDIDADE
         ####################################
         caminho = L.profundidade(r.posicaoRobo, d.posicaoDestino, nos, grafo)
@@ -414,7 +416,7 @@ def exec(nos, grafo, linha, coluna, grafoPesos, posicoes):
         proxColumns = achaPosicao(caminho, linha, coluna)[1]
         ####################################
 
-    if algoritmo == 3:
+    if algoritmo == "Profundidade Limitada":
         #PROFUNDIDADE LIMITADA
         ####################################
         lim = int(input("Insira o limite : "))
@@ -426,7 +428,7 @@ def exec(nos, grafo, linha, coluna, grafoPesos, posicoes):
         proxColumns = achaPosicao(caminho, linha, coluna)[1]
         ####################################
 
-    if algoritmo == 4:
+    if algoritmo == "Aprofundamento Interativo":
         #APROFUNDAMENTO INTERATIVO
         ####################################
         caminho = L.aprofundamentoInterativo(r.posicaoRobo, d.posicaoDestino, nos, grafo)
@@ -436,7 +438,7 @@ def exec(nos, grafo, linha, coluna, grafoPesos, posicoes):
         proxColumns = achaPosicao(caminho, linha, coluna)[1]
         ####################################
     
-    if algoritmo == 5:
+    if algoritmo == "Bidirecional":
         #BIDIRECIONAL
         ####################################
         caminho = L.bidirecional(r.posicaoRobo, d.posicaoDestino, nos, grafo)
@@ -446,19 +448,19 @@ def exec(nos, grafo, linha, coluna, grafoPesos, posicoes):
         proxColumns = achaPosicao(caminho, linha, coluna)[1]
         ####################################
     
-    if algoritmo == 6:
+    if algoritmo == "Custo uniforme":
          #CUSTO UNIFORME
         ####################################
         proxLines, proxColumns = bp.exec(algoritmo, nos, grafo, linha, coluna, grafoPesos, r.posicaoRobo, d.posicaoDestino, posicoes)
         ####################################
     
-    if algoritmo == 7:
+    if algoritmo == "Greedy":
          #GREEDY
         ####################################
         proxLines, proxColumns = bp.exec(algoritmo, nos, grafo, linha, coluna, grafoPesos, r.posicaoRobo, d.posicaoDestino, posicoes)
         ####################################
     
-    if algoritmo == 8:
+    if algoritmo == "A*":
         #A*
         ####################################
         proxLines, proxColumns = bp.exec(algoritmo, nos, grafo, linha, coluna, grafoPesos, r.posicaoRobo, d.posicaoDestino, posicoes)

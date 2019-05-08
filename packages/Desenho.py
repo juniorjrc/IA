@@ -161,11 +161,21 @@ class Desenho():
 
     #MÉTODO DE DESENHO DO MAPA EM INTERFACE GRÁFICA NA TELA
     def desenhaMapa(self, largura, altura, matriz, linhas, colunas):
+
+        #CRIAÇÃO E POSICIONAMENTO DO FRAME QUE IRÁ CONTER O MAPA EM CONJUNTO COM AS POSIÇÕES DE JOGADOR E DESTINO
         root    = tk.Tk()
         root.title("BATMAN NEED'S FIND JOKER")
         frame   = tk.Frame()
         frame.pack()
         canvas = tk.Canvas(width=largura, height=altura)
+        windowWidth = root.winfo_reqwidth()
+        windowHeight = root.winfo_reqheight()
+
+        positionRight = int(root.winfo_screenwidth()/5 - windowWidth/5)
+        positionDown = int(root.winfo_screenheight()/10 - windowHeight/10)
+
+        root.geometry("+{}+{}".format(positionRight, positionDown))
+        #FIM DA CRIAÇÃO E POSICIONAMENTO DO FRAME
 
         linhas, colunas = len(matriz), len(matriz[0])
         ret_largura, ret_altura     = largura // linhas, altura // colunas
@@ -202,8 +212,8 @@ class Desenho():
                 if li < len(lines) and co < len(columns):
                     canvas.after(1000, movimentaJogador)
                 else:
-                    canvas.create_image(80, 100, image=batman.simbolo, anchor='nw')
-                    canvas.create_text(400, 300, font=("Purisa", 20),
+                    canvas.create_image(300, 235, image=batman.simbolo, anchor='nw')
+                    canvas.create_text(400, 300, font=("Purisa", 8),
                                    text="O BATMAN ENCONTROU O CORINGA!!!", fill="white")
             else:
                 canvas.create_text(400, 300, font=("Purisa", 20), text="NÃO FOI POSSÍVEL ENCONTRAR O CORINGA!!", fill="black")

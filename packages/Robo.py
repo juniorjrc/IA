@@ -5,22 +5,44 @@ from PIL import ImageTk
 import tkinter as tk
 class Robo:
     def __init__(self, linha, coluna):
-        self.linha      = defineLinha(linha)
-        self.coluna     = defineColuna(coluna)
+        self.linha      = defineLinha(linha, coluna)
+        self.coluna     = defineColuna(linha, coluna)
         self.cor        = defineCorRobo()
         self.imagem     = defineImagem()
         self.simbolo    = defineSimbolo()
         self.posicaoRobo = self.linha * linha + (self.coluna + 1)
 
-def defineLinha(linha):
-    #linhaJogador = randint(0, m1-1)
-    linhaRobo = 4
-    return linhaRobo
+def defineLinha(linha, coluna):
+    p = 1
+    linhaRobo = 0
+    arqR = open("Files/batman.txt", "r+")
+    posicao = arqR.read()
+    arqR.close()
 
-def defineColuna(coluna):
-    #colunaJogador = randint(0, m2-1)
-    colunaRobo = 4
-    return colunaRobo
+    for l in range(linha):
+        for c in range(coluna):
+            if p == int(posicao):
+                linhaRobo = l
+                
+            p += 1
+
+    return int(linhaRobo)
+
+def defineColuna(linha, coluna):
+    p = 1
+    colunaRobo = 0
+    arqR = open("Files/batman.txt", "r+")
+    posicao = arqR.read()
+    arqR.close()
+
+    for l in range(linha):
+        for c in range(coluna):
+            if p == int(posicao):
+                colunaRobo = c
+                
+            p += 1
+
+    return int(colunaRobo)
 
 def defineCorRobo():
     corRobo = "gray"
@@ -38,7 +60,7 @@ def defineImagem():
 
 def defineSimbolo():
     simbolo = Image.open(r'./Images/simbolo.png')
-    basewidth = 600
+    basewidth = 200
     bwpercent = (basewidth/ float(simbolo.size[0]))
     bhsize = int((float(simbolo.size[1]) * float(bwpercent)))
     simbolo = simbolo.resize((basewidth, bhsize), PIL.Image.ANTIALIAS)

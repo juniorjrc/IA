@@ -309,7 +309,7 @@ def achaPosicao(caminho, m1, m2):
 
 #EXECUÇÃO DO ALGORITMO
 def exec(op, nos, grafo, m1, m2 , grafoPesos, jogador, destino, posicoes):
-    if op == 6:
+    if op == "Custo uniforme":
         sol = busca()
         caminho = []
         caminho, custo = sol.custo_uniforme(jogador, destino, nos, grafoPesos)
@@ -319,7 +319,7 @@ def exec(op, nos, grafo, m1, m2 , grafoPesos, jogador, destino, posicoes):
         proxColumns = achaPosicao(caminho, m1, m2)[1]
         return proxLines, proxColumns
     
-    if op == 7:
+    if op == "Greedy":
         sol = busca()
         caminho = []
         caminho, custo = sol.greedy(jogador, destino, nos, grafoPesos, posicoes)
@@ -329,7 +329,7 @@ def exec(op, nos, grafo, m1, m2 , grafoPesos, jogador, destino, posicoes):
         proxColumns = achaPosicao(caminho, m1, m2)[1]
         return proxLines, proxColumns
     
-    if op == 8:
+    if op == "A*":
         sol = busca()
         caminho = []
         caminho, custo = sol.a_estrela(jogador, destino, nos, grafoPesos, posicoes)

@@ -6,19 +6,43 @@ import tkinter as tk
 
 class Destino:
     def __init__(self, linha, coluna):
-        self.linha      = defineLinha(linha)
-        self.coluna     = defineColuna(coluna)
+        self.linha      = defineLinha(linha, coluna)
+        self.coluna     = defineColuna(linha, coluna)
         self.cor        = defineCorDestino()
         self.imagem     = defineImagem()
         self.posicaoDestino = self.linha * linha + (self.coluna + 1)
 
-def defineLinha(linha):
+def defineLinha(linha, coluna):
+    p = 1
     linhaDestino = 0
-    return linhaDestino
+    arqR = open("Files/coringa.txt", "r+")
+    posicao = arqR.read()
+    arqR.close()
 
-def defineColuna(coluna):
+    for l in range(linha):
+        for c in range(coluna):
+            if p == int(posicao):
+                linhaDestino = l
+                
+            p += 1
+
+    return int(linhaDestino)
+
+def defineColuna(linha, coluna):
+    p = 1
     colunaDestino = 0
-    return colunaDestino
+    arqR = open("Files/coringa.txt", "r+")
+    posicao = arqR.read()
+    arqR.close()
+
+    for l in range(linha):
+        for c in range(coluna):
+            if p == int(posicao):
+                colunaDestino = c
+                
+            p += 1
+
+    return int(colunaDestino)
 
 def defineCorDestino():
     corDestino = "red"
